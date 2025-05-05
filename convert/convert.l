@@ -1,6 +1,8 @@
 %{
 #include "convert.tab.h"
 #include <string.h>
+// string is used to call the function strdup which creates a copy of the string yytext
+
 %}
 
 %%

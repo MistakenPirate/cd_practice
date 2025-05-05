@@ -1,8 +1,8 @@
 %{
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <stdlib.h> //atoi
+#include <string.h> //string funcs
+#include <ctype.h> //toUpper
 
 int binaryToDecimal(const char *bin);
 char* decimalToBinary(int decimal);
