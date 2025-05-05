@@ -93,15 +93,16 @@
 #line 1 "convert.y"
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <stdlib.h> //atoi
+#include <string.h> //string funcs
+#include <ctype.h> //toUpper
 
 int binaryToDecimal(const char *bin);
 char* decimalToBinary(int decimal);
 char* hexToBinary(const char *hex);
 char* binaryToHex(const char *bin);
-int yylex(void);
+
+int yylex();
 void yyerror(const char *msg);
 
 
@@ -126,12 +127,12 @@ void yyerror(const char *msg);
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 16 "convert.y"
+#line 17 "convert.y"
 {
     char* str;
 }
 /* Line 193 of yacc.c.  */
-#line 135 "convert.tab.c"
+#line 136 "convert.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -144,7 +145,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 148 "convert.tab.c"
+#line 149 "convert.tab.c"
 
 #ifdef short
 # undef short
@@ -427,7 +428,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    28,    28,    29,    30,    31
+       0,    29,    29,    30,    31,    32
 };
 #endif
 
@@ -1328,28 +1329,28 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 28 "convert.y"
+#line 29 "convert.y"
     { printf("Decimal: %d\n", binaryToDecimal((yyvsp[(2) - (2)].str))); ;}
     break;
 
   case 3:
-#line 29 "convert.y"
+#line 30 "convert.y"
     { printf("Binary: %s\n", decimalToBinary(atoi((yyvsp[(2) - (2)].str)))); ;}
     break;
 
   case 4:
-#line 30 "convert.y"
+#line 31 "convert.y"
     { printf("Binary: %s\n", hexToBinary((yyvsp[(2) - (2)].str))); ;}
     break;
 
   case 5:
-#line 31 "convert.y"
+#line 32 "convert.y"
     { printf("Hex: %s\n", binaryToHex((yyvsp[(2) - (2)].str))); ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1353 "convert.tab.c"
+#line 1354 "convert.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1563,7 +1564,7 @@ yyreturn:
 }
 
 
-#line 34 "convert.y"
+#line 35 "convert.y"
 
 
 int main() {
@@ -1580,6 +1581,8 @@ void yyerror(const char *msg) {
 // Helper functions
 
 int binaryToDecimal(const char *bin) {
+    int temp = *bin - '0';
+    printf("%d",temp);
     int decimal = 0;
     while (*bin) {
         decimal = decimal * 2 + (*bin++ - '0');

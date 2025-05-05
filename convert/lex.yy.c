@@ -455,8 +455,10 @@ char *yytext;
 #line 2 "convert.l"
 #include "convert.tab.h"
 #include <string.h>
-#line 458 "lex.yy.c"
-#line 459 "lex.yy.c"
+// string is used to call the function strdup which creates a copy of the string yytext
+
+#line 460 "lex.yy.c"
+#line 461 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -673,9 +675,9 @@ YY_DECL
 		}
 
 	{
-#line 6 "convert.l"
+#line 8 "convert.l"
 
-#line 678 "lex.yy.c"
+#line 680 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -734,61 +736,61 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 7 "convert.l"
+#line 9 "convert.l"
 { return B2D; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 8 "convert.l"
+#line 10 "convert.l"
 { return D2B; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 9 "convert.l"
+#line 11 "convert.l"
 { return H2B; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 10 "convert.l"
+#line 12 "convert.l"
 { return B2H; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 11 "convert.l"
+#line 13 "convert.l"
 { yylval.str = strdup(yytext); return BINARY; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 12 "convert.l"
+#line 14 "convert.l"
 { yylval.str = strdup(yytext); return DECIMAL; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 13 "convert.l"
+#line 15 "convert.l"
 { yylval.str = strdup(yytext); return HEX; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 14 "convert.l"
+#line 16 "convert.l"
 { /* ignore whitespace */ }
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 15 "convert.l"
+#line 17 "convert.l"
 { return 0; }  // newline signals end of input
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 16 "convert.l"
+#line 18 "convert.l"
 { return INVALID; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 17 "convert.l"
+#line 19 "convert.l"
 ECHO;
 	YY_BREAK
-#line 791 "lex.yy.c"
+#line 793 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1793,7 +1795,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 17 "convert.l"
+#line 19 "convert.l"
 
 
 int yywrap() {
