@@ -757,17 +757,17 @@ YY_RULE_SETUP
 case 5:
 YY_RULE_SETUP
 #line 13 "convert.l"
-{ yylval.str = strdup(yytext); return BINARY; }
+{ yylval = yytext; return BINARY; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 14 "convert.l"
-{ yylval.str = strdup(yytext); return DECIMAL; }
+{ yylval = yytext; return DECIMAL; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 15 "convert.l"
-{ yylval.str = strdup(yytext); return HEX; }
+{ yylval = yytext; return HEX; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP

@@ -126,14 +126,7 @@ void yyerror(const char *msg);
 #endif
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-#line 17 "convert.y"
-{
-    char* str;
-}
-/* Line 193 of yacc.c.  */
-#line 136 "convert.tab.c"
-	YYSTYPE;
+typedef int YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
@@ -145,7 +138,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 149 "convert.tab.c"
+#line 142 "convert.tab.c"
 
 #ifdef short
 # undef short
@@ -428,7 +421,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    30,    31,    32
+       0,    25,    25,    26,    27,    28
 };
 #endif
 
@@ -1329,28 +1322,28 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 29 "convert.y"
-    { printf("Decimal: %d\n", binaryToDecimal((yyvsp[(2) - (2)].str))); ;}
+#line 25 "convert.y"
+    { printf("Decimal: %d\n", binaryToDecimal((yyvsp[(2) - (2)]))); ;}
     break;
 
   case 3:
-#line 30 "convert.y"
-    { printf("Binary: %s\n", decimalToBinary(atoi((yyvsp[(2) - (2)].str)))); ;}
+#line 26 "convert.y"
+    { printf("Binary: %s\n", decimalToBinary(atoi((yyvsp[(2) - (2)])))); ;}
     break;
 
   case 4:
-#line 31 "convert.y"
-    { printf("Binary: %s\n", hexToBinary((yyvsp[(2) - (2)].str))); ;}
+#line 27 "convert.y"
+    { printf("Binary: %s\n", hexToBinary((yyvsp[(2) - (2)]))); ;}
     break;
 
   case 5:
-#line 32 "convert.y"
-    { printf("Hex: %s\n", binaryToHex((yyvsp[(2) - (2)].str))); ;}
+#line 28 "convert.y"
+    { printf("Hex: %s\n", binaryToHex((yyvsp[(2) - (2)]))); ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1354 "convert.tab.c"
+#line 1347 "convert.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1564,7 +1557,7 @@ yyreturn:
 }
 
 
-#line 35 "convert.y"
+#line 31 "convert.y"
 
 
 int main() {
@@ -1581,8 +1574,6 @@ void yyerror(const char *msg) {
 // Helper functions
 
 int binaryToDecimal(const char *bin) {
-    int temp = *bin - '0';
-    printf("%d",temp);
     int decimal = 0;
     while (*bin) {
         decimal = decimal * 2 + (*bin++ - '0');
@@ -1591,14 +1582,18 @@ int binaryToDecimal(const char *bin) {
 }
 
 char* decimalToBinary(int decimal) {
-    static char bin[65];
+    char bin[65];
     int i = 0;
     if (decimal == 0) return "0";
+
+    //core converstion
     while (decimal > 0) {
         bin[i++] = (decimal % 2) + '0';
         decimal /= 2;
     }
     bin[i] = '\0';
+
+    //reverse the string
     for (int j = 0; j < i / 2; j++) {
         char temp = bin[j];
         bin[j] = bin[i - j - 1];
@@ -1608,9 +1603,16 @@ char* decimalToBinary(int decimal) {
 }
 
 char* hexToBinary(const char *hex) {
-    static char bin[256] = "";
+    char bin[256] = "";
+
+    //end of string to use the strcat func -> strcat will concat the string
     bin[0] = '\0';
+
+    //so we are iterating all the hex nums and concatinating the binary of each
+
     for (int i = 0; hex[i]; i++) {
+
+        //to upper from ctype.h
         switch(toupper(hex[i])) {
             case '0': strcat(bin, "0000"); break;
             case '1': strcat(bin, "0001"); break;
@@ -1635,20 +1637,27 @@ char* hexToBinary(const char *hex) {
 }
 
 char* binaryToHex(const char *bin) {
-    static char hex[65] = "";
+    char hex[65] = "";
     int len = strlen(bin);
-    int rem = len % 4;
-    char padded[65] = "";
+    int rem = len % 4;  //this is to determine if we need to pad the binary string
+    char padded[65] = "";   //padded version of the binary string
+
+    //add 0's to the start if padding is needed
     if (rem != 0) {
         for (int i = 0; i < 4 - rem; i++) strcat(padded, "0");
     }
     strcat(padded, bin);
 
+    //again add this for strcat to work
     hex[0] = '\0';
+
+    //iterate through the binary string by count of 4 and concat with respective hex
     for (int i = 0; i < strlen(padded); i += 4) {
+
         char chunk[5] = "";
-        strncpy(chunk, &padded[i], 4);
+        strncpy(chunk, &padded[i], 4);  //strncpy to copy n=4 chars
         chunk[4] = '\0';
+
         if (strcmp(chunk, "0000") == 0) strcat(hex, "0");
         else if (strcmp(chunk, "0001") == 0) strcat(hex, "1");
         else if (strcmp(chunk, "0010") == 0) strcat(hex, "2");
@@ -1666,6 +1675,7 @@ char* binaryToHex(const char *bin) {
         else if (strcmp(chunk, "1110") == 0) strcat(hex, "E");
         else if (strcmp(chunk, "1111") == 0) strcat(hex, "F");
     }
+    
     return hex;
 }
 
