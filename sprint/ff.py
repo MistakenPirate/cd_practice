@@ -37,6 +37,38 @@ for nt in non_terminals:
 for nt in non_terminals:
     print(f"FIRST({nt}) : {sorted(first[nt])}")
 
+def comf():
+    while True:
+        updated = False
+        for nt in non_terminals:
+            for prod in grammar[nt]:
+                symbols = prod.split()
+                trailer = follow[nt].copy()
+
+                for symbol in reversed(symbols):
+                    if symbol in terminals:
+                        trailer = {symbol}
+                    else:
+                        prev = len(follow[symbol])
+                        follow[symbol].update(trailer)
+                        now = len(follow[symbol])
+
+                        if now > prev:
+                            updated = True
+
+                        if 'e' in first[symbol]:
+                            trailer.update(follow[symbol] - {'e'})
+                        else:
+                            trailer = follow[symbol].copy()
+
+        if not updated:
+            break
+
+
+                
+
+
+
 def com_follow():
     while True:
         updated = False
