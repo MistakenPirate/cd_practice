@@ -64,6 +64,49 @@ def comf():
         if not updated:
             break
 
+def followss():
+    while True:
+        updated = False
+        for nt in non_terminals:
+            for prod in grammar[nt]:
+                symbols = prod.split()
+                trailer = follow[nt].copy()
+                for symbol in reversed(symbols):
+                    if symbol in terminals:
+                        trailer = {symbol}
+                    else:
+                        prev = len(follow[nt])
+                        follow[nt].update(trailer)
+                        after = len(follow[nt])
+                        if prev < after:
+                            updated = True
+                        if 'e' in first[symbol]:
+                            trailer.update(first[symbol] - {'e'})
+                        else:
+                            trailer = first[nt].copy()
+        if not updated:
+            break
+
+
+def firstss(symbol):
+    if symbol in terminals:
+        return {symbol}
+    
+    ans = set()
+
+    for prod in grammar[symbol]:
+        
+        parts = prod.split()
+        
+        for part in parts:
+            temp = firstss[part]
+            ans.update(temp - {'e'})
+            if 'e' not in temp:
+                break
+        else:
+            ans.add('e')
+    
+    return ans
 
                 
 
